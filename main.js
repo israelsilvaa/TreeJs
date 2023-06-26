@@ -22,6 +22,9 @@ camera.position.set(-90,140,140);
 controlador.update();
 // camera.lookAt(0, 0, 0);
 
+const luzAmbiente = new THREE.AmbientLight(0x333333);
+scene.add(luzAmbiente);
+
 let cubo, sol, cilindro, plano, cone, terra, lua;
 
 function CriarSol(cor, raio, qtdSegLargura, qtdSegAltura) {
@@ -57,13 +60,6 @@ function CriarLua(cor, raio, segLargura, segAltura) {
 	lua.translateX(10);
 	scene.add(lua);
 	// lua.position.y = 60;
-}
-
-function criarLuz()
-{
-    var pointLight = new THREE.PointLight(0xFFFFFF);
-    pointLight.position.set(10, 50, 30);
-    scene.add(pointLight);
 }
 
 // // cubo
@@ -112,7 +108,6 @@ function criarLuz()
 CriarSol(new THREE.Color(0xD6D637 ), 10, 64, 64);
 CriarTerra(new THREE.Color(0xffab15), 3, 20, 20);
 CriarLua(new THREE.Color(0xffab15), 2, 20, 20);
-criarLuz();
 
 
 const clock = new THREE.Clock();
@@ -123,12 +118,12 @@ function animate() {
 
 	sol.rotation.y += 0.003;
 
-	terra.position.x = Math.sin(elapsedTime) * 30;
-	terra.position.y = Math.cos(elapsedTime) * 30;
+	terra.position.x = Math.sin(elapsedTime * 0.18) * 30;
+	terra.position.y = Math.cos(elapsedTime * 0.18) * 30;
 	terra.rotation.z += 0.02;
 	
-	lua.position.x = Math.sin(elapsedTime) * 25;
-	lua.position.y = Math.cos(elapsedTime) * 25;
+	lua.position.x = Math.sin(elapsedTime * 0.08) * 25;
+	lua.position.y = Math.cos(elapsedTime * 0.08) * 25;
 	lua.rotation.z += 0.02;
 
 	// cubo.rotateZ(0.004);
