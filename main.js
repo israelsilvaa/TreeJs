@@ -34,7 +34,7 @@ function CriarSol(cor, raio, qtdSegLargura, qtdSegAltura) {
 	var material = new THREE.MeshBasicMaterial({
 		map: loader.load('img/sol.jpg')
 	});
-	var texturaFundo = loader.load('img/espaco2.jpg'); 
+	var texturaFundo = loader.load('img/espaco.jpg'); 
 		// var material = new THREE.MeshBasicMaterial({ color: cor });
 	sol = new THREE.Mesh(geometria, material);
 	sol.position.x = 0;
@@ -53,7 +53,7 @@ function CriarMercurio(cor, raio, segLargura, segAltura) {
 function CriarVenus(cor, raio, segLargura, segAltura) {
 	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
 	var material = new THREE.MeshBasicMaterial({
-		map: loader.load('img/lua.jpg')
+		map: loader.load('img/venus.jpg')
 	});
 	venus = new THREE.Mesh(geometria, material);
 	scene.add(venus);
@@ -123,29 +123,29 @@ function animate() {
 	requestAnimationFrame(animate);
 	const elapsedTime = clock.getElapsedTime()
 
-	sol.rotation.z -= 0.003;
+	sol.rotation.z -= 0.001;
 	
-	mercurio.rotation.z -= 0.03;
+	mercurio.rotation.y -= 0.03;
 	mercurio.position.x = Math.sin(elapsedTime * 2) * 25;
 	mercurio.position.y = Math.cos(elapsedTime * 2) * 25;
 	
 	venus.position.x = Math.sin(elapsedTime * 1) * 36;
 	venus.position.y = Math.cos(elapsedTime * 1) * 36;
-	venus.rotation.z -= 0.02;
+	venus.rotation.y -= 0.02;
 
-	terra.rotation.z -= 0.02;
+	terra.rotation.y -= 0.02;
 	terra.position.x = Math.sin(elapsedTime * 0.8) * 55;
 	terra.position.y = Math.cos(elapsedTime * 0.8) * 55;
 	
-	marte.rotation.z -= 0.02;
+	marte.rotation.y -= 0.02;
 	marte.position.x = Math.sin(elapsedTime * 0.5) * 75;
 	marte.position.y = Math.cos(elapsedTime * 0.5) * 75;
-	
-	jupiter.rotation.z -= 0.02;
+
+	jupiter.rotation.y -= 0.02;
 	jupiter.position.x = Math.sin(elapsedTime * 0.2) * 105;
 	jupiter.position.y = Math.cos(elapsedTime * 0.2) * 105;
 	
-	saturno.rotation.z -= 0.02;
+	saturno.rotation.y -= 0.02;
 	saturno.position.x = Math.sin(elapsedTime * 0.08) * 135;
 	saturno.position.y = Math.cos(elapsedTime * 0.08) * 135;
 	
