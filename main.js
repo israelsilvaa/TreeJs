@@ -4,6 +4,7 @@ import {
 	OrbitControls
 } from "https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/controls/OrbitControls.js";
 
+
 // funções basicas para toda cena
 const renderer = new THREE.WebGLRenderer();
 
@@ -18,97 +19,103 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 const controlador = new OrbitControls(camera, renderer.domElement);
 var loader = new THREE.TextureLoader();
 
-camera.position.set(-90,140,140);
+camera.position.set(30,-30,-480);
 controlador.update();
 // camera.lookAt(0, 0, 0);
 
 const luzAmbiente = new THREE.AmbientLight(0x333333);
-scene.add(luzAmbiente);
 
-let cubo, sol, cilindro, plano, cone, terra, lua;
+
+let sol, mercurio, venus, terra, marte,jupiter, saturno, urano, netuno;
 
 function CriarSol(cor, raio, qtdSegLargura, qtdSegAltura) {
 	var geometria = new THREE.SphereGeometry(raio, qtdSegAltura, qtdSegAltura)
 	// var material = new THREE.MeshBasicMaterial({ map: loader.load('https://lh3.googleusercontent.com/T0oOA8YxcckPkQayuFVrwYrH61CIhtUT8yUn5aNzOxiDiAQ1I7T9JwC2zFhUoN2pdsgPU0ySkpiJhyhR_z51buPGcaC0faQeLHI') })
 	var material = new THREE.MeshBasicMaterial({
-		map: loader.load('sol.jpg')
+		map: loader.load('img/sol.jpg')
 	});
-	var texturaFundo = loader.load('espaço.jpg'); 
+	var texturaFundo = loader.load('img/espaco2.jpg'); 
 		// var material = new THREE.MeshBasicMaterial({ color: cor });
 	sol = new THREE.Mesh(geometria, material);
 	sol.position.x = 0;
 	scene.add(sol);
 	scene.background = texturaFundo;
+	sol.add(luzAmbiente);
 }
-
+function CriarMercurio(cor, raio, segLargura, segAltura) {
+	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
+	var material = new THREE.MeshBasicMaterial({
+		map: loader.load('img/mercurio.jpg')
+	});
+	mercurio = new THREE.Mesh(geometria, material);
+	scene.add(mercurio);
+}
+function CriarVenus(cor, raio, segLargura, segAltura) {
+	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
+	var material = new THREE.MeshBasicMaterial({
+		map: loader.load('img/lua.jpg')
+	});
+	venus = new THREE.Mesh(geometria, material);
+	scene.add(venus);
+}
 function CriarTerra(cor, raio, segLargura, segAltura) {
 	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
 	var material = new THREE.MeshBasicMaterial({
-		map: loader.load('terra.jpg')
+		map: loader.load('img/terra.jpg')
 	});
 	terra = new THREE.Mesh(geometria, material);
-	terra.translateX(20);
 	scene.add(terra);
 }
-
-function CriarLua(cor, raio, segLargura, segAltura) {
+function CriarMarte(cor, raio, segLargura, segAltura) {
 	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
 	var material = new THREE.MeshBasicMaterial({
-		map: loader.load('lua.jpg')
+		map: loader.load('img/marte.jpg')
 	});
-	lua = new THREE.Mesh(geometria, material);
-	lua.translateX(10);
-	scene.add(lua);
-	// lua.position.y = 60;
+	marte = new THREE.Mesh(geometria, material);
+	scene.add(marte);
+}
+function Criarjupiter(cor, raio, segLargura, segAltura) {
+	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
+	var material = new THREE.MeshBasicMaterial({
+		map: loader.load('img/jupiter.jpg')
+	});
+	jupiter = new THREE.Mesh(geometria, material);
+	scene.add(jupiter);
+}
+function CriarSaturno(cor, raio, segLargura, segAltura) {
+	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
+	var material = new THREE.MeshBasicMaterial({
+		map: loader.load('img/saturno.jpg')
+	});
+	saturno = new THREE.Mesh(geometria, material);
+	scene.add(saturno);
+}
+function CriarUrano(cor, raio, segLargura, segAltura) {
+	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
+	var material = new THREE.MeshBasicMaterial({
+		map: loader.load('img/urano.jpg')
+	});
+	urano = new THREE.Mesh(geometria, material);
+	scene.add(urano);
+}
+function CriarNetuno(cor, raio, segLargura, segAltura) {
+	var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura)
+	var material = new THREE.MeshBasicMaterial({
+		map: loader.load('img/netuno.jpg')
+	});
+	netuno = new THREE.Mesh(geometria, material);
+	scene.add(netuno);
 }
 
-// // cubo
-// function CriarCubo(cor, largura, altura, profundidade) {
-// 	var geometria = new THREE.BoxGeometry(largura, altura, profundidade);
-// 	var material = new THREE.MeshBasicMaterial({ map: loader.load('https://lh3.googleusercontent.com/T0oOA8YxcckPkQayuFVrwYrH61CIhtUT8yUn5aNzOxiDiAQ1I7T9JwC2zFhUoN2pdsgPU0ySkpiJhyhR_z51buPGcaC0faQeLHI') });
-// 	material.flatShading = true;
-
-// 	cubo = new THREE.Mesh(geometria, material); scene.add(cubo);
-// 	cubo.position.x = 0;
-// }
-
-// function CriarCilindro(cor, raioCima, raioBaixo, altura) {
-// 	var geometria = new THREE.CylinderGeometry(raioCima, raioBaixo, altura, 20);
-// 	var material = new THREE.MeshBasicMaterial({ color: cor })
-
-// 	cilindro = new THREE.Mesh(geometria, material); scene.add(cilindro);
-// 	cilindro.position.x = 3;
-// }
-
-
-// function CriarCone(cor, raio, altura, qtdDetalhes) {
-// 	var geometria = new THREE.ConeGeometry(raio, altura, qtdDetalhes);
-// 	var material = new THREE.MeshBasicMaterial({ color: cor });
-
-// 	cone = new THREE.Mesh(geometria, material); scene.add(cone);
-// 	cone.position.x = -2;
-// }
-
-// function CriarPlano(cor, altura, largura) {
-// 	var geometria = new THREE.PlaneGeometry(altura, largura);
-// 	var material = new THREE.MeshBasicMaterial({
-// 		color: cor
-// 	});
-
-// 	plano = new THREE.Mesh(geometria, material);
-// 	scene.add(plano);
-// 	plano.position.x = -5;
-// }
-
-// CriarCubo(1, 1, 1)
-// CriarCilindro(new THREE.Color(0x1E90FF), 1, 1, 2);
-// CriarCone(new THREE.Color(0xFF007F), 1, 2, 30);
-// CriarPlano(new THREE.Color(0x6A5ACD), 1, 2);
-// CriarTerra(new THREE.Color(0xffab15), 1, 16, 16);
-CriarSol(new THREE.Color(0xD6D637 ), 10, 64, 64);
-CriarTerra(new THREE.Color(0xffab15), 3, 20, 20);
-CriarLua(new THREE.Color(0xffab15), 2, 20, 20);
-
+CriarSol(new THREE.Color(0xD6D637 ), 20, 64, 64);
+CriarMercurio(new THREE.Color(0xffab15), 3, 20, 20);
+CriarVenus(new THREE.Color(0xffab15), 6, 20, 20);
+CriarTerra(new THREE.Color(0xffab15), 9, 20, 20);
+CriarMarte(new THREE.Color(0xffab15), 7, 20, 20);
+Criarjupiter(new THREE.Color(0xffab15), 15, 20, 20);
+CriarSaturno(new THREE.Color(0xffab15), 12, 20, 20);
+CriarUrano(new THREE.Color(0xffab15), 10, 20, 20);
+CriarNetuno(new THREE.Color(0xffab15), 10, 20, 20);
 
 const clock = new THREE.Clock();
 
@@ -116,25 +123,40 @@ function animate() {
 	requestAnimationFrame(animate);
 	const elapsedTime = clock.getElapsedTime()
 
-	sol.rotation.y += 0.003;
-
-	terra.position.x = Math.sin(elapsedTime * 0.18) * 30;
-	terra.position.y = Math.cos(elapsedTime * 0.18) * 30;
-	terra.rotation.z += 0.02;
+	sol.rotation.z -= 0.003;
 	
-	lua.position.x = Math.sin(elapsedTime * 0.08) * 25;
-	lua.position.y = Math.cos(elapsedTime * 0.08) * 25;
-	lua.rotation.z += 0.02;
+	mercurio.rotation.z -= 0.03;
+	mercurio.position.x = Math.sin(elapsedTime * 2) * 25;
+	mercurio.position.y = Math.cos(elapsedTime * 2) * 25;
+	
+	venus.position.x = Math.sin(elapsedTime * 1) * 36;
+	venus.position.y = Math.cos(elapsedTime * 1) * 36;
+	venus.rotation.z -= 0.02;
 
-	// cubo.rotateZ(0.004);
-	// plano.rotation.x += 0.01;
-	// plano.rotation.y -= 0.01;
-	// cone.rotation.z += 0.01;
-	// cone.rotation.y += 0.01;
-	// cilindro.rotation.x += 0.01;
-	// cilindro.rotation.y += 0.01;
-	// esfera.rotation.y += 0.01;
-
+	terra.rotation.z -= 0.02;
+	terra.position.x = Math.sin(elapsedTime * 0.8) * 55;
+	terra.position.y = Math.cos(elapsedTime * 0.8) * 55;
+	
+	marte.rotation.z -= 0.02;
+	marte.position.x = Math.sin(elapsedTime * 0.5) * 75;
+	marte.position.y = Math.cos(elapsedTime * 0.5) * 75;
+	
+	jupiter.rotation.z -= 0.02;
+	jupiter.position.x = Math.sin(elapsedTime * 0.2) * 105;
+	jupiter.position.y = Math.cos(elapsedTime * 0.2) * 105;
+	
+	saturno.rotation.z -= 0.02;
+	saturno.position.x = Math.sin(elapsedTime * 0.08) * 135;
+	saturno.position.y = Math.cos(elapsedTime * 0.08) * 135;
+	
+	urano.rotation.z -= 0.02;
+	urano.position.x = Math.sin(elapsedTime * 0.05) * 160;
+	urano.position.y = Math.cos(elapsedTime * 0.05) * 160;
+	
+	netuno.rotation.z -= 0.02;
+	netuno.position.x = Math.sin(elapsedTime * 0.02) * 175;
+	netuno.position.y = Math.cos(elapsedTime * 0.02) * 175;
+	
 	renderer.render(scene, camera);
 }
 animate();
