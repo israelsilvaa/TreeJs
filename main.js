@@ -56,26 +56,33 @@ function CriarSol(cor, raio, qtdSegLargura, qtdSegAltura) {
 
 function CriarMercurio(cor, raio, segLargura, segAltura) {
   var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura);
-  var material = new THREE.MeshStandardMaterial({
-    map: loader.load("img/mercurio.jpg")
+  var material = new THREE.MeshPhongMaterial({
+    map: loader.load("img/mercurio.jpg"),
+    flatShading: true
   });
   mercurio = new THREE.Mesh(geometria, material);
+  mercurio.castShadow = true;
+  mercurio.receiveShadow = true;
   scene.add(mercurio);
 }
 
 function CriarVenus(cor, raio, segLargura, segAltura) {
   var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura);
-  var material = new THREE.MeshStandardMaterial({
-    map: loader.load("img/venus.jpg")
+  var material = new THREE.MeshPhongMaterial({
+    map: loader.load("img/venus.jpg"),
+    flatShading: true
   });
   venus = new THREE.Mesh(geometria, material);
+  venus.castShadow = true;
+  venus.receiveShadow = true;
   scene.add(venus);
 }
 
 function CriarTerra(cor, raio, segLargura, segAltura) {
   var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura);
-  var material = new THREE.MeshStandardMaterial({
-    map: loader.load("img/terra.jpg")
+  var material = new THREE.MeshPhongMaterial({
+    map: loader.load("img/terra.jpg"),
+    flatShading: true
   });
   terra = new THREE.Mesh(geometria, material);
   scene.add(terra);
@@ -170,14 +177,18 @@ function CriarLuzSpot(cor, intensidade, x, y, z) {
   light.target.position.set(0, 0, 0);
   light.castShadow = true;
 
-  var ajudante = new THREE.PointLightHelper(light);
+  light.shadow.camera.near = 1;
+  light.shadow.camera.far = 200;
 
-  scene.add(light);
-  scene.add(light.target);
-  scene.add(ajudante);
+  light.shadow.mapSize.width = 1024;
+  light.shadow.mapSize.height = 1024;
+
 
   const cameraHelper = new THREE.CameraHelper(light.shadow.camera);
   scene.add(cameraHelper);
+
+  scene.add(light);
+  scene.add(light.target);
 }
 
 CriarSol(new THREE.Color(0xd6d637), 20, 64, 64);
@@ -194,7 +205,7 @@ CriarUranoAnel(new THREE.Color(0x6a5acd), 30, 30);
 
 // CriarLuzAmbiente(new THREE.Color(0xFFFFFF), 1);
 // CriarLuzDirecional(new THREE.Color(0xFFFFFF), 1, 5, -2, 0);
-// CriarLuzSpot(new THREE.Color(0xFFFFFF), 1, 0, 10, 5);
+CriarLuzSpot(new THREE.Color(0xFFFFFF), 1, 50, 10, 5);
 
 var contador = 0;
 const PointLight = new THREE.PointLight(0xFFFFFF, 2 , 300);
