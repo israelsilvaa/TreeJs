@@ -1,6 +1,8 @@
 // Importação da biblioteca
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
-import { OrbitControls } from "https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/controls/OrbitControls.js";
+import {
+  OrbitControls
+} from "https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/controls/OrbitControls.js";
 
 // funções basicas para toda cena
 const renderer = new THREE.WebGLRenderer();
@@ -8,7 +10,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  45,
+  75,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
@@ -24,7 +26,7 @@ controlador.update();
 // const pontoDeLuz = new THREE.PointLight(0xffffff, 3, 300);
 // scene.add(pontoDeLuz);
 
-let sol,
+var sol,
   mercurio,
   venus,
   terra,
@@ -34,6 +36,7 @@ let sol,
   urano,
   netuno,
   saturnoAnel,
+  light,
   uranoAnel;
 
 var texturaFundo = loader.load("img/espaco.jpg");
@@ -139,6 +142,42 @@ function CriarUranoAnel(cor, altura, largura) {
   scene.add(uranoAnel);
 }
 
+// iluminação
+function CriarLuzAmbiente(cor, intensidade){
+  light = new THREE.AmbientLight(cor, intensidade);
+  scene.add(light)
+}
+function CriarLuzDirecional(cor, intensidade, x, y, z) {
+  light = new THREE.DirectionalLight(cor, intensidade);
+  light.position.set(x, y, z);
+  light.target.position.set(0, 0, 0);
+  light.castShadow = true;
+
+  // configure directional light camera
+  light.shadow.camera.zoom = .5;
+
+  scene.add(light);
+  scene.add(light.target);
+
+  const cameraHelper = new THREE.CameraHelper(light.shadow.camera);
+  scene.add(cameraHelper);
+}
+function CriarLuzSpot(cor, intensidade, x, y, z) {
+  light = new THREE.SpotLight(cor, intensidade);
+  light.position.set(x, y, z);
+  light.target.position.set(0, 0, 0);
+  light.castShadow = true;
+
+  var ajudante = new THREE.PointLightHelper(light);
+
+  scene.add(light);
+  scene.add(light.target);
+  scene.add(ajudante);
+
+  const cameraHelper = new THREE.CameraHelper(light.shadow.camera);
+  scene.add(cameraHelper);
+}
+
 CriarSol(new THREE.Color(0xd6d637), 20, 64, 64);
 CriarMercurio(new THREE.Color(0xffab15), 3, 20, 20);
 CriarVenus(new THREE.Color(0xffab15), 6, 20, 20);
@@ -151,12 +190,23 @@ CriarNetuno(new THREE.Color(0xffab15), 10, 20, 20);
 CriarSaturnoAnel(new THREE.Color(0x6a5acd), 30, 30);
 CriarUranoAnel(new THREE.Color(0x6a5acd), 30, 30);
 
+CriarLuzAmbiente(new THREE.Color(0xFFFFFF), 1);
+// CriarLuzDirecional(new THREE.Color(0xFFFFFF), 1, 5, -2, 0);
+// CriarLuzSpot(new THREE.Color(0xFFFFFF), 1, 0, 10, 5);
+
 const clock = new THREE.Clock();
+
+
+var contador = 0;
 
 function animate() {
   requestAnimationFrame(animate);
+  contador += 0.02;
 
   const elapsedTime = clock.getElapsedTime();
+
+  // light.position.y = Math.sin(contador);
+  // light.position.z = Math.cos(contador);
 
   //   sol
   sol.rotation.y += 0.002;
@@ -181,7 +231,7 @@ function animate() {
   marte.position.x = Math.sin(elapsedTime * 0.6) * 95;
   marte.position.z = Math.cos(elapsedTime * 0.6) * 95;
   marte.rotation.y += 0.02;
-  
+
   //   jupiter
   jupiter.position.x = Math.sin(elapsedTime * 0.4) * 125;
   jupiter.position.z = Math.cos(elapsedTime * 0.4) * 125;
@@ -204,12 +254,12 @@ function animate() {
   uranoAnel.position.x = Math.sin(elapsedTime * 0.2) * 180;
   uranoAnel.position.z = Math.cos(elapsedTime * 0.2) * 180;
   uranoAnel.rotation.x = -8
-  
+
   // 	netuno
   netuno.position.x = Math.sin(elapsedTime * 0.1) * 195;
   netuno.position.z = Math.cos(elapsedTime * 0.1) * 195;
   netuno.rotation.y += 0.02;
-  
+
   renderer.render(scene, camera);
 }
 animate();
