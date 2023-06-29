@@ -13,13 +13,12 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight); // set tamanho da "tela"?
 document.body.appendChild(renderer.domElement);
 const loader = new THREE.TextureLoader();
-const controls = new OrbitControls(camera, renderer.domElement);
-
 // set posição da camera e "ativação" controles de orbita
 camera.position.set(200, 200, 200);
+const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 
 // variaves que vão se tornar objetos
@@ -44,8 +43,6 @@ function CriarSol(cor, raio, qtdSegLargura, qtdSegAltura) {
   var material = new THREE.MeshBasicMaterial({
     map: loader.load("img/sol.jpg"),
   });
-  geometria.castShadow = true;
-  geometria.receiveShadow = true;
   //justa material e textura
   sol = new THREE.Mesh(geometria, material);
   scene.add(sol);
@@ -56,8 +53,6 @@ function CriarMercurio(cor, raio, segLargura, segAltura) {
     map: loader.load("img/mercurio.jpg"),
   });
   mercurio = new THREE.Mesh(geometria, material);
-  mercurio.castShadow = true;
-  mercurio.receiveShadow = true;
   scene.add(mercurio);
 }
 function CriarVenus(cor, raio, segLargura, segAltura) {
@@ -66,8 +61,6 @@ function CriarVenus(cor, raio, segLargura, segAltura) {
     map: loader.load("img/venus.jpg"),
   });
   venus = new THREE.Mesh(geometria, material);
-  venus.castShadow = true;
-  venus.receiveShadow = true;
   scene.add(venus);
 }
 // 3D
@@ -97,8 +90,6 @@ function CriarTerra(cor, raio, segLargura, segAltura) {
     map: loader.load("img/terra.jpg"),
   });
   terra = new THREE.Mesh(geometria, material);
-  terra.castShadow = true;
-  terra.receiveShadow = true;
   scene.add(terra);
 }
 function CriarMarte(cor, raio, segLargura, segAltura) {
@@ -107,8 +98,6 @@ function CriarMarte(cor, raio, segLargura, segAltura) {
     map: loader.load("img/marte.jpg"),
   });
   marte = new THREE.Mesh(geometria, material);
-  marte.castShadow = true;
-  marte.receiveShadow = true;
   scene.add(marte);
 }
 function Criarjupiter(cor, raio, segLargura, segAltura) {
@@ -117,8 +106,6 @@ function Criarjupiter(cor, raio, segLargura, segAltura) {
     map: loader.load("img/jupiter.jpg"),
   });
   jupiter = new THREE.Mesh(geometria, material);
-  jupiter.castShadow = true;
-  jupiter.receiveShadow = true;
   scene.add(jupiter);
 }
 // 3D
@@ -155,6 +142,8 @@ function CriarNetuno(cor, raio, segLargura, segAltura) {
   netuno = new THREE.Mesh(geometria, material);
   scene.add(netuno);
 }
+
+// ----------fim  wesley---------
 
 // instanciação dos objetos geometricos por meio da função
 CriarSol(new THREE.Color(0xd6d637), 20, 64, 64);
