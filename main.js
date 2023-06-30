@@ -3,6 +3,9 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"; 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
+// deploy
+// https://github.com/israelsilvaa/TreeJs
+
 // funções basicas para toda cena
 //cena, camera, renderizador, carregador de textura e controles de orbita
 const scene = new THREE.Scene();
@@ -25,9 +28,8 @@ controls.update();
 var sol,
   mercurio,
   venus,
-  terra,
   satelite,
-  lua,
+  terra_lua,
   marte,
   jupiter,
   saturno,
@@ -68,7 +70,6 @@ function CriarSatelite() {
   new GLTFLoader().load("modelos/satelite/scene.gltf", function (gltf) {
     const model = gltf.scene;
     model.scale.set(5, 5, 5);
-
     model.traverse(function (object) {
       if (object.isMesh) object.receiveShadow = true;
     });
@@ -76,21 +77,17 @@ function CriarSatelite() {
     scene.add(satelite);
   });
 }
-function CriarLua(cor, raio, segLargura, segAltura) {
-  var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura);
-  var material = new THREE.MeshStandardMaterial({
-    map: loader.load("img/lua.jpg"),
+// 3D
+function CriarTerraLua() {
+  new GLTFLoader().load("modelos/terra_lua/scene.gltf", function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(0.03, 0.03, 0.03);
+    model.traverse(function (object) {
+      if (object.isMesh) object.receiveShadow = true;
+    });
+    terra_lua = model;
+    scene.add(terra_lua);
   });
-  lua = new THREE.Mesh(geometria, material);
-  scene.add(lua);
-}
-function CriarTerra(cor, raio, segLargura, segAltura) {
-  var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura);
-  var material = new THREE.MeshStandardMaterial({
-    map: loader.load("img/terra.jpg"),
-  });
-  terra = new THREE.Mesh(geometria, material);
-  scene.add(terra);
 }
 function CriarMarte(cor, raio, segLargura, segAltura) {
   var geometria = new THREE.SphereGeometry(raio, segLargura, segAltura);
@@ -150,8 +147,7 @@ CriarSol(new THREE.Color(0xd6d637), 20, 64, 64);
 CriarMercurio(new THREE.Color(0xffab15), 3, 64, 64);
 CriarVenus(new THREE.Color(0xffab15), 6, 64, 64);
 CriarSatelite();
-CriarTerra(new THREE.Color(0xffab15), 9, 64, 64);
-CriarLua(new THREE.Color(0xffab15), 3, 64, 64);
+CriarTerraLua();
 CriarMarte(new THREE.Color(0xffab15), 7, 64, 64);
 Criarjupiter(new THREE.Color(0xffab15), 15, 64, 64);
 CriarSaturno();
@@ -159,7 +155,7 @@ CriarUrano();
 CriarNetuno(new THREE.Color(0xffab15), 8, 64, 64);
 
 // ponto de luz para simular luz do SOL
-const PointLight = new THREE.PointLight(0xffffff, 8, 300);
+const PointLight = new THREE.PointLight(0xffffff, 8, 450);
 scene.add(PointLight);
 
 // auxiliar para fazer rotações a cada instante de tempo
@@ -183,41 +179,38 @@ function animate() {
   venus.rotation.y += 0.02;
 
   // satelite
-  satelite.position.x = Math.sin(contador * 0.7) * 60;
-  satelite.position.z = Math.cos(contador * 0.7) * 60;
+  satelite.position.x = Math.sin(contador * 0.7) * 85;
+  satelite.position.z = Math.cos(contador * 0.7) * 85;
   satelite.rotation.x += 0.02;
-  //   Lua
-  lua.position.x = Math.sin(contador * 0.7) * 75;
-  lua.position.z = Math.cos(contador * 0.7) * 75;
-  lua.rotation.y += 0.01;
-  //   terra
-  terra.position.x = Math.sin(contador * 0.7) * 95;
-  terra.position.z = Math.cos(contador * 0.7) * 95;
-  terra.rotation.y += 0.01;
+  
+  // terra e lua
+  terra_lua.position.x = Math.sin(contador * 0.7) * 105;
+  terra_lua.position.z = Math.cos(contador * 0.7) * 105;
+  terra_lua.rotation.y += 0.05;
 
   //   marte
-  marte.position.x = Math.sin(contador * 0.6) * 110;
-  marte.position.z = Math.cos(contador * 0.6) * 110;
+  marte.position.x = Math.sin(contador * 0.6) * 155;
+  marte.position.z = Math.cos(contador * 0.6) * 155;
   marte.rotation.y += 0.02;
 
   //   jupiter
-  jupiter.position.x = Math.sin(contador * 0.4) * 135;
-  jupiter.position.z = Math.cos(contador * 0.4) * 135;
+  jupiter.position.x = Math.sin(contador * 0.4) * 185;
+  jupiter.position.z = Math.cos(contador * 0.4) * 185;
   jupiter.rotation.y += 0.02;
 
   //   saturno
-  saturno.position.x = Math.sin(contador * 0.25) * 185;
-  saturno.position.z = Math.cos(contador * 0.25) * 185;
+  saturno.position.x = Math.sin(contador * 0.25) * 245;
+  saturno.position.z = Math.cos(contador * 0.25) * 245;
   saturno.rotation.y += 0.02;
 
   //	urano
-  urano.position.x = Math.sin(contador * 0.2) * 250;
-  urano.position.z = Math.cos(contador * 0.2) * 250;
+  urano.position.x = Math.sin(contador * 0.2) * 330;
+  urano.position.z = Math.cos(contador * 0.2) * 330;
   urano.rotation.x = 2;
 
   // netuno
-  netuno.position.x = Math.sin(contador * 0.1) * 290;
-  netuno.position.z = Math.cos(contador * 0.1) * 290;
+  netuno.position.x = Math.sin(contador * 0.1) * 390;
+  netuno.position.z = Math.cos(contador * 0.1) * 390;
   netuno.rotation.y = 2;
 
   renderer.render(scene, camera);
