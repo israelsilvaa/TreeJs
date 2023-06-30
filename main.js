@@ -170,8 +170,8 @@ function animate() {
   sol.rotation.y += 0.002;
 
   //   mercurio              (velocidade orbita)    (distancia)
-  mercurio.position.x = Math.sin(contador * 0.9) * 30;
-  mercurio.position.z = Math.cos(contador * 0.9) * 30;
+  mercurio.position.x = Math.sin(contador * 2) * 30;
+  mercurio.position.z = Math.cos(contador * 2) * 30;
   mercurio.rotation.y += 0.03;
 
   //   venus
