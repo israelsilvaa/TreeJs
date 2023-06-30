@@ -162,7 +162,8 @@ scene.add(PointLight);
 var contador = 0;
 
 function animate() {
-  requestAnimationFrame(animate);
+  //para melhora de suavização ao processar os quadros
+  requestAnimationFrame(animate); 
   contador += 0.01;
 
   //   sol
@@ -186,7 +187,7 @@ function animate() {
   // terra e lua
   terra_lua.position.x = Math.sin(contador * 0.7) * 105;
   terra_lua.position.z = Math.cos(contador * 0.7) * 105;
-  terra_lua.rotation.y += 0.05;
+  terra_lua.rotation.y += 0.03;
 
   //   marte
   marte.position.x = Math.sin(contador * 0.6) * 155;

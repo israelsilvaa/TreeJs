@@ -17,6 +17,8 @@ Opções para rodar o projeto:
     3_ Na pasta raiz do projeto, abra o terminal e execute os comandos
         -npm install
         -npm run dev
+    
+    Apos o comando "npm run dev" vai ser gerado um link, basta abri-lo no navegador
 
 -Deploy do projeto(porém sem acesso ao código fonte):
 
