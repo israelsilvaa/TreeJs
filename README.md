@@ -4,8 +4,10 @@ trabalho 2 de computação grafica: animação em TreeJs
 Opções para rodar o projeto:
 
 -Github:
+    
     requisitos minimos:
-        -ter instalado Visual Studio code<https://code.visualstudio.com/>
+    
+        -ter instalado Visual Studio code <https://code.visualstudio.com/>
         -ter instalado Node.js <https://nodejs.org/en/download>
             
     passos:
