@@ -6,6 +6,9 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // deploy
 // https://github.com/israelsilvaa/TreeJs
 
+// video: 
+// https://youtu.be/Pm9cD0bX_Bw
+
 // funções basicas para toda cena
 //cena, camera, renderizador, carregador de textura e controles de orbita
 const scene = new THREE.Scene();

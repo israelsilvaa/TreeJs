@@ -1,6 +1,10 @@
 # TreeJs
 trabalho 2 de computação grafica: animação em TreeJs
 
+-Video explicativo sobre projeto:
+    
+    link: https://youtu.be/Pm9cD0bX_Bw
+
 Opções para rodar o projeto:
 
 -Github:
